@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tour/navigate_button.dart';
 
 AppNavigateFieldNotifier kAppNavigateNotifier = AppNavigateFieldNotifier();
 
@@ -17,7 +18,12 @@ class AppNavigateField extends StatelessWidget {
         return SizedBox(
           width: MediaQuery.of(context).size.width * _widthFactor,
           child: const Column(
-            children: [],
+            children: [
+              NavigateButton(
+                  buttonText: 'a', isSelected: false, routeToWidget: Text('a')),
+              NavigateButton(
+                  buttonText: 'b', isSelected: false, routeToWidget: Text('b'))
+            ],
           ),
         );
       },
