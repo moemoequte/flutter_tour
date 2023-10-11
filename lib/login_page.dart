@@ -17,8 +17,11 @@ class LoginPage extends StatelessWidget {
                 const TextField(),
                 const TextField(),
                 TextButton(
-                    onPressed: () => MaterialPageRoute(
-                          builder: (context) => const AppPage(),
+                    onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AppPage(),
+                          ),
                         ),
                     child: const Text('login'))
               ]),
