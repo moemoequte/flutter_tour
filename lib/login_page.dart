@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tour/app_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -15,7 +16,11 @@ class LoginPage extends StatelessWidget {
               child: Column(children: [
                 const TextField(),
                 const TextField(),
-                TextButton(onPressed: () {}, child: const Text('login'))
+                TextButton(
+                    onPressed: () => MaterialPageRoute(
+                          builder: (context) => const AppPage(),
+                        ),
+                    child: const Text('login'))
               ]),
             ),
           );
