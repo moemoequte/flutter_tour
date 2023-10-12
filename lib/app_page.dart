@@ -7,9 +7,11 @@ class AppPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body:
-          Row(children: [AppNavigateField(), Expanded(child: AppMainField())]),
+    return Scaffold(
+      body: Row(children: [
+        AppNavigateField(),
+        const Expanded(child: AppMainField())
+      ]),
     );
   }
 }

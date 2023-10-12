@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tour/app_main_field.dart';
 import 'package:flutter_tour/navigate_button.dart';
 
 AppNavigateFieldNotifier kAppNavigateNotifier = AppNavigateFieldNotifier();
@@ -6,9 +7,13 @@ AppNavigateFieldNotifier kAppNavigateNotifier = AppNavigateFieldNotifier();
 class AppNavigateFieldNotifier with ChangeNotifier {}
 
 class AppNavigateField extends StatelessWidget {
-  const AppNavigateField({super.key});
+  AppNavigateField({super.key});
 
   final double _widthFactor = 0.2;
+  final List<_ListNodeContent> _list = [
+    _ListNodeContent('title a', const Text('a')),
+    _ListNodeContent('title b', const Text('b'))
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +22,23 @@ class AppNavigateField extends StatelessWidget {
       builder: (context, child) {
         return SizedBox(
           width: MediaQuery.of(context).size.width * _widthFactor,
-          child: const Column(
-            children: [
-              NavigateButton(
-                  buttonText: 'a', isSelected: false, routeToWidget: Text('a')),
-              NavigateButton(
-                  buttonText: 'b', isSelected: false, routeToWidget: Text('b'))
-            ],
+          child: Column(
+            children: List.generate(_list.length, (index) {
+              return NavigateButton(
+                  buttonText: _list[index].title,
+                  isSelected: _list[index].title ==
+                      kAppMainfieldNotifier.currentWidgetName,
+                  routeToWidget: _list[index].widget);
+            }),
           ),
         );
       },
     );
   }
+}
+
+class _ListNodeContent {
+  _ListNodeContent(this.title, this.widget);
+  final String title;
+  final Widget widget;
 }

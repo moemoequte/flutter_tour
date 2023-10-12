@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 AppMainFieldNotifier kAppMainfieldNotifier = AppMainFieldNotifier();
 
 class AppMainFieldNotifier with ChangeNotifier {
-  late String currentWidgetName;
+  String currentWidgetName = 'AppMainFieldInitContent';
   Widget currentWidget = const AppMainFieldInitContent();
 
   void changeAppMainFieldView(String name, Widget widget) {
