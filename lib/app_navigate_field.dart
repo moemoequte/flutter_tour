@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tour/app_main_field.dart';
+import 'package:flutter_tour/counter_app.dart';
 import 'package:flutter_tour/navigate_button.dart';
 
 AppNavigateFieldNotifier kAppNavigateNotifier = AppNavigateFieldNotifier();
@@ -11,8 +12,7 @@ class AppNavigateField extends StatelessWidget {
 
   final double _widthFactor = 0.2;
   final List<_ListNodeContent> _list = [
-    _ListNodeContent('title a', const Text('a')),
-    _ListNodeContent('title b', const Text('b'))
+    _ListNodeContent('Counter App', CounterApp()),
   ];
 
   @override
