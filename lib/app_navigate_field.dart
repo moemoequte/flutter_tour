@@ -26,11 +26,14 @@ class AppNavigateField extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: List.generate(_list.length, (index) {
-              return NavigateButton(
-                  buttonText: _list[index].title,
-                  isSelected: _list[index].title ==
-                      kAppMainfieldNotifier.currentWidgetName,
-                  routeToWidget: _list[index].widget);
+              return SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: NavigateButton(
+                    buttonText: _list[index].title,
+                    isSelected: _list[index].title ==
+                        kAppMainfieldNotifier.currentWidgetName,
+                    routeToWidget: _list[index].widget),
+              );
             }),
           ),
         );
