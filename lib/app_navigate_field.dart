@@ -23,6 +23,7 @@ class AppNavigateField extends StatelessWidget {
         return SizedBox(
           width: MediaQuery.of(context).size.width * _widthFactor,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(_list.length, (index) {
               return NavigateButton(
                   buttonText: _list[index].title,

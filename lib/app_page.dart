@@ -10,6 +10,7 @@ class AppPage extends StatelessWidget {
     return Scaffold(
       body: Row(children: [
         AppNavigateField(),
+        const VerticalDivider(),
         const Expanded(child: AppMainField())
       ]),
     );
