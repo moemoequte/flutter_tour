@@ -34,7 +34,12 @@ class DownloadApp extends StatelessWidget {
               int tempLength = 0;
               List<int> list = List.empty(growable: true);
               downloadFunc() async {
-                debugPrint('start download');
+                ScaffoldMessenger.of(context)
+                  ..removeCurrentSnackBar()
+                  ..showSnackBar(const SnackBar(
+                    content: Text('Download Start'),
+                    duration: Duration(seconds: 2),
+                  ));
                 final response = await http.Client().send(http.Request(
                     'GET',
                     Uri.parse(
@@ -49,6 +54,21 @@ class DownloadApp extends StatelessWidget {
                   file.createSync();
                   file.writeAsBytesSync(list);
                   isDone = true;
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text('Download Complete.'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('done'))
+                        ],
+                      );
+                    },
+                  );
                 });
               }
 
