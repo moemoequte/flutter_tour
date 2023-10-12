@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tour/app_main_field.dart';
+import 'package:flutter_tour/async_app.dart';
 import 'package:flutter_tour/counter_app.dart';
 import 'package:flutter_tour/navigate_button.dart';
 
@@ -13,6 +14,7 @@ class AppNavigateField extends StatelessWidget {
   final double _widthFactor = 0.2;
   final List<_ListNodeContent> _list = [
     _ListNodeContent('Counter App', CounterApp()),
+    _ListNodeContent('Async App', const AsyncApp()),
   ];
 
   @override
