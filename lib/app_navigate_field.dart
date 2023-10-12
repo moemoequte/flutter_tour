@@ -27,7 +27,7 @@ class AppNavigateField extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: List.generate(_list.length, (index) {
               return SizedBox(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width * _widthFactor,
                 child: NavigateButton(
                     buttonText: _list[index].title,
                     isSelected: _list[index].title ==
