@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tour/app_main_field.dart';
 import 'package:flutter_tour/async_app.dart';
 import 'package:flutter_tour/counter_app.dart';
+import 'package:flutter_tour/cs_server_info_app.dart';
 import 'package:flutter_tour/download_app.dart';
 import 'package:flutter_tour/navigate_button.dart';
 
@@ -17,6 +18,7 @@ class AppNavigateField extends StatelessWidget {
     _ListNodeContent('Counter App', CounterApp()),
     _ListNodeContent('Async App', const AsyncApp()),
     _ListNodeContent('Download App', DownloadApp()),
+    _ListNodeContent('CS Server', const CSServerInfoApp()),
   ];
 
   @override
