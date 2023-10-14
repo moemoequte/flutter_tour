@@ -30,7 +30,7 @@ class _ServerInfoListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final future = _getServerInfoAsync(hostname, port);
+    final future = _getServerInfo(hostname, port);
     return Row(
       children: [
         Expanded(
@@ -66,11 +66,8 @@ class _ServerInfo {
       required this.playerCount});
 }
 
-Future<_ServerInfo> _getServerInfoAsync(String ip, int port) async {
-  return await _getServerInfo(ip, port);
-}
-
 Future<_ServerInfo> _getServerInfo(String ip, int port) async {
+  await Future.delayed(Duration.zero);
   final server = _a2s.ssq_server_new(ip.toNativeUtf8() as Pointer<Char>, port);
   final info = _a2s.ssq_info(server as Pointer<Int>);
   final name = info.cast<Pointer<Utf8>>().elementAt(1).value.toDartString();
