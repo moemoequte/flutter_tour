@@ -5,54 +5,92 @@ import 'package:flutter_tour/libssq.dart';
 
 final _a2s = A2SLibrary(DynamicLibrary.open('ssq.dll'));
 
+final _queryList = [
+  _QueryParameter(hostname: 'css.cialloo.com', port: 27015),
+  _QueryParameter(hostname: 'css.cialloo.com', port: 27016),
+  _QueryParameter(hostname: 'bot.cialloo.com', port: 27015),
+  _QueryParameter(hostname: 'bot.cialloo.com', port: 27016)
+];
+
+final _appInfoNotifier = _InfoAppNotifier();
+
 class CSServerInfoApp extends StatelessWidget {
   const CSServerInfoApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: const [
-        _ServerInfoListTile(
-          hostname: 'css.cialloo.com',
-          port: 27015,
-        ),
-        _ServerInfoListTile(hostname: 'css.cialloo.com', port: 27016),
-      ],
+    _generateList();
+    return ListenableBuilder(
+      listenable: _appInfoNotifier,
+      builder: (context, child) {
+        return Column(
+          children: [
+            Column(
+              children: _appInfoNotifier.infoTileList,
+            ),
+            const TextButton(onPressed: _generateList, child: Text('press'))
+          ],
+        );
+      },
     );
   }
 }
 
-class _ServerInfoListTile extends StatelessWidget {
-  const _ServerInfoListTile({required this.hostname, required this.port});
+void _generateList() {
+  _appInfoNotifier.infoTileList = List.generate(_queryList.length, (index) {
+    return _InfoTile(
+        future:
+            _getServerInfo(_queryList[index].hostname, _queryList[index].port));
+  });
+  _appInfoNotifier.notify();
+}
 
-  final String hostname;
-  final int port;
+class _InfoAppNotifier with ChangeNotifier {
+  late List<Widget> infoTileList;
+  void notify() {
+    notifyListeners();
+  }
+}
 
-  @override
-  Widget build(BuildContext context) {
-    final future = _getServerInfo(hostname, port);
+class _InfoTile extends StatelessWidget {
+  final Future<_ServerInfo> future;
+
+  const _InfoTile({required this.future});
+
+  Widget _build(String info) {
     return Row(
       children: [
         Expanded(
             child: InkWell(
-          child: FutureBuilder(
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                final data = snapshot.data;
-                return Text('${data?.hostname} ${data?.mapName}');
-              } else if (snapshot.hasError) {
-                return Text('query error: ${snapshot.error}');
-              }
-
-              return Text('quering $hostname:$port');
-            },
-            future: future,
-          ),
-          onTap: () {},
+          child: Text(info),
         ))
       ],
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: future,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var data = snapshot.data;
+          return _build('${data?.hostname} ${data?.mapName}');
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+
+        return const Text('fetching data');
+      },
+    );
+  }
+}
+
+class _QueryParameter {
+  final String hostname;
+  final int port;
+
+  _QueryParameter({required this.hostname, required this.port});
 }
 
 class _ServerInfo {
