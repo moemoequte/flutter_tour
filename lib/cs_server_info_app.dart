@@ -73,6 +73,10 @@ class _InfoTile extends StatelessWidget {
     return FutureBuilder(
       future: future,
       builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const Text('fetching data');
+        }
+
         if (snapshot.hasData) {
           var data = snapshot.data;
           return _build('${data?.hostname} ${data?.mapName}');
@@ -105,7 +109,7 @@ class _ServerInfo {
 }
 
 Future<_ServerInfo> _getServerInfo(String ip, int port) async {
-  await Future.delayed(Duration.zero);
+  await Future.delayed(const Duration(milliseconds: 300));
   final server = _a2s.ssq_server_new(ip.toNativeUtf8() as Pointer<Char>, port);
   final info = _a2s.ssq_info(server as Pointer<Int>);
   final name = info.cast<Pointer<Utf8>>().elementAt(1).value.toDartString();
